@@ -2,6 +2,9 @@ package com.project.calendarapp.reader;
 
 import com.opencsv.CSVReader;
 import com.project.calendarapp.event.Meeting;
+import com.project.calendarapp.event.NoDisturbance;
+import com.project.calendarapp.event.OutOfOffice;
+import com.project.calendarapp.event.Todo;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,9 +30,6 @@ public class EventCsvReader {
     public EventCsvReader(final RawCsvReader rawCsvReader) {
         this.rawCsvReader = rawCsvReader;
     }
-
-
-
 
 
     public List<Meeting> readMeetings(String path) throws IOException {
@@ -68,6 +68,130 @@ public class EventCsvReader {
                             new HashSet<>(Arrays.asList(each[2].split(","))),
                             each[4],
                             each[5]
+                    )
+            );
+        }
+
+
+        return result;
+    }
+
+
+    public List<Todo> readTodos(String path) throws IOException {
+        List<Todo> result = new ArrayList<>();
+
+        // 데이터를 읽는 부분
+        List<String[]> read = rawCsvReader.readAll(path);
+
+        for (int i = 0; i < read.size(); i++) {
+            // 첫번째 헤더는 원하는 데이터가 아님 -> 제외시키기
+            if (skipHeader(i)){
+                continue;
+            }
+
+            String[] each = read.get(i);
+
+            result.add(
+                    new Todo(
+                            Integer.parseInt(each[0]),
+                            each[2],
+                            ZonedDateTime.of(
+                                    LocalDateTime.parse(
+                                            each[4],
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Seoul")
+                            ),
+                            ZonedDateTime.of(
+                                    LocalDateTime.parse(
+                                            each[5],
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Seoul")
+                            ),
+                            each[3]
+                    )
+            );
+        }
+
+
+        return result;
+    }
+
+
+    public List<NoDisturbance> readNoDisturbances(String path) throws IOException {
+        List<NoDisturbance> result = new ArrayList<>();
+
+        // 데이터를 읽는 부분
+        List<String[]> read = rawCsvReader.readAll(path);
+
+        for (int i = 0; i < read.size(); i++) {
+            // 첫번째 헤더는 원하는 데이터가 아님 -> 제외시키기
+            if (skipHeader(i)){
+                continue;
+            }
+
+            String[] each = read.get(i);
+
+            result.add(
+                    new NoDisturbance(
+                            Integer.parseInt(each[0]),
+                            each[2],
+                            ZonedDateTime.of(
+                                    LocalDateTime.parse(
+                                            each[3],
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Seoul")
+                            ),
+                            ZonedDateTime.of(
+                                    LocalDateTime.parse(
+                                            each[4],
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Seoul")
+                            )
+                    )
+            );
+        }
+
+
+        return result;
+    }
+
+
+    public List<OutOfOffice> readOutOfOffices(String path) throws IOException {
+        List<OutOfOffice> result = new ArrayList<>();
+
+        // 데이터를 읽는 부분
+        List<String[]> read = rawCsvReader.readAll(path);
+
+        for (int i = 0; i < read.size(); i++) {
+            // 첫번째 헤더는 원하는 데이터가 아님 -> 제외시키기
+            if (skipHeader(i)){
+                continue;
+            }
+
+            String[] each = read.get(i);
+
+            result.add(
+                    new OutOfOffice(
+                            Integer.parseInt(each[0]),
+                            each[2],
+                            ZonedDateTime.of(
+                                    LocalDateTime.parse(
+                                            each[3],
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Seoul")
+                            ),
+                            ZonedDateTime.of(
+                                    LocalDateTime.parse(
+                                            each[4],
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Seoul")
+                            )
                     )
             );
         }
