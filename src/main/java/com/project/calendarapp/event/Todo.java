@@ -1,5 +1,9 @@
 package com.project.calendarapp.event;
 
+import com.project.calendarapp.event.update.AbstractAuditableEvent;
+import com.project.calendarapp.event.update.UpdateMeeting;
+import com.project.calendarapp.event.update.UpdateTodo;
+
 import java.time.ZonedDateTime;
 
 public class Todo extends AbstractEvent {
@@ -21,5 +25,12 @@ public class Todo extends AbstractEvent {
     @Override
     public boolean support(EventType type) {
         return type == EventType.TO_DO;
+    }
+
+    @Override
+    protected void update(AbstractAuditableEvent update) {
+        UpdateTodo todoUpdate = (UpdateTodo) update;
+        this.description = todoUpdate.getDescription();
+
     }
 }
