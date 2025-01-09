@@ -1,15 +1,11 @@
 package com.project.calendarapp.reader;
 
-import com.opencsv.CSVReader;
 import com.project.calendarapp.event.Meeting;
 import com.project.calendarapp.event.NoDisturbance;
 import com.project.calendarapp.event.OutOfOffice;
 import com.project.calendarapp.event.Todo;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -204,11 +200,4 @@ public class EventCsvReader {
         return i == 0;
     }
 
-//    private List<String[]> readAll(String path) throws IOException {
-//        InputStream in = getClass().getResourceAsStream(path);
-//        InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
-//
-//        CSVReader csvReader = new CSVReader(reader);
-//        return csvReader.readAll();
-//    }
 }

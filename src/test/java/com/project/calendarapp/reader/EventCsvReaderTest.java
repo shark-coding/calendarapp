@@ -33,18 +33,18 @@ class EventCsvReaderTest {
         // given
         String path = "";
 
-        // mockDate 만들기
-        List<String[]> mockDate = new ArrayList<>();
+        // mockData 만들기
+        List<String[]> mockData = new ArrayList<>();
 
         // 헤더 넣어주기
-        mockDate.add(new String[8]);
+        mockData.add(new String[8]);
 
         int mockSize = 5;
         for (int i = 0; i < mockSize; i++) {
-            mockDate.add(generateMock(i));
+            mockData.add(generateMock(i));
         }
 
-        when(rawCsvReader.readAll(path)).thenReturn(mockDate);
+        when(rawCsvReader.readAll(path)).thenReturn(mockData);
 
         // when
         List<Meeting> meetings = sut.readMeetings(path);
@@ -63,7 +63,7 @@ class EventCsvReaderTest {
         mock[4] = "A1"+id;
         mock[5] = "test"+id;
         mock[6] = of(ZonedDateTime.now().plusHours(id));
-        mock[7] = of(ZonedDateTime.now().plusHours(id+1));;
+        mock[7] = of(ZonedDateTime.now().plusHours(id+1));
         return mock;
     }
 
